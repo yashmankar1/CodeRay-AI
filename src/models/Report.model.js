@@ -31,6 +31,10 @@ const reportSchema = new mongoose.Schema(
     qualityScore: {
       type: Number,
     },
+    sha: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true },
 );

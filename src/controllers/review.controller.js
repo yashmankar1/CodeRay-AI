@@ -13,6 +13,14 @@ exports.reviewCode = async (req, res) => {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 
+    const sha = fileResponse.data.sha;
+
+    const existingReport = await Report.findOne({ owner, repo, path, sha });
+    if (existingReport) {
+      console.log("Cache hit! Returning saved report.");
+      return res.json(existingReport);
+    }
+
     const code = Buffer.from(fileResponse.data.content, "base64").toString(
       "utf-8",
     );
@@ -60,6 +68,7 @@ ${code}`;
       repo,
       path,
       fileName,
+      sha,
       summary: reviewData.summary,
       bugs: reviewData.bugs,
       suggestions: reviewData.suggestions,
