@@ -12,6 +12,7 @@ router.get("/github", githubLogin);
 router.get("/github/callback", githubCallback);
 
 router.get("/me", userAuth, (req, res) => {
+  res.set("Cache-Control", "no-store");
   const { _id, githubId, username, displayName, avatarUrl, email } = req.user;
   res.json({
     user: {

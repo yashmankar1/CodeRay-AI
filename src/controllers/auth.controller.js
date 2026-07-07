@@ -62,15 +62,13 @@ exports.githubCallback = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      sameSite: "none",
+      secure: true,
     });
 
     console.log("User in DB:", user);
 
-    res.json({
-      username: user.username,
-      displayName: user.displayName,
-      avatarUrl: user.avatarUrl,
-    });
+    res.redirect("http://localhost:5173/dashboard");
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ error: "Github authentication failed" });
