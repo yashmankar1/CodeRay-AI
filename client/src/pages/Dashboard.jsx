@@ -4,6 +4,7 @@ import { API_BASE_URL } from "../config/api";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
+  const [repo, setRepo] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,7 +14,11 @@ function Dashboard() {
           withCredentials: true,
         });
         setUser(response.data.user);
-        console.log("User set successfully:", response.data.user);
+
+        const repos = await axios.get(`${API_BASE_URL}/api/repos`, {
+          withCredentials: true,
+        });
+        setRepo(repos.data);
       } catch (error) {
         console.error("Not logged in:", error.message);
       } finally {
@@ -30,6 +35,12 @@ function Dashboard() {
       <h1>Welcome, {user.displayName}</h1>
       <img src={user.avatarUrl} alt="avatar" width="80"></img>
       <p>@{user.username}</p>
+
+      <ul>
+        {repo.map((repo) => (
+          <li key={repo.id}>{repo.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
