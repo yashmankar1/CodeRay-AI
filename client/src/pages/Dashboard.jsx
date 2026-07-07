@@ -37,8 +37,8 @@ function Dashboard() {
       <p>@{user.username}</p>
 
       <ul>
-        {repo.map((repo) => (
-          <li key={repo.id}>{repo.name}</li>
+        {repo.map((r) => (
+          <li key={r.id}>{r.name}</li>
         ))}
       </ul>
     </div>
