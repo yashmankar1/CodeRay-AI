@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../config/api";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -38,7 +39,9 @@ function Dashboard() {
 
       <ul>
         {repo.map((r) => (
-          <li key={r.id}>{r.name}</li>
+          <li key={r.id}>
+            <Link to={`/repo/${user.username}/${r.name}`}>{r.name}</Link>
+          </li>
         ))}
       </ul>
     </div>
