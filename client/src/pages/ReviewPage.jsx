@@ -13,7 +13,6 @@ function ReviewPage() {
   const [reviewLoading, setReviewLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Effect 1: fetch the raw file content on page load
   useEffect(() => {
     const fetchFile = async () => {
       try {
@@ -31,7 +30,6 @@ function ReviewPage() {
     fetchFile();
   }, [owner, repo, path]);
 
-  // Triggered only when the button is clicked
   const handleReviewClick = async () => {
     setReviewLoading(true);
     try {
@@ -58,7 +56,7 @@ function ReviewPage() {
       <h1>{path}</h1>
 
       <pre
-        style={{ background: "#f4f4f4", padding: "1rem", overflowX: "auto"}}
+        style={{ background: "#f4f4f4", padding: "1rem", overflowX: "auto" }}
       >
         <code>{code}</code>
       </pre>
