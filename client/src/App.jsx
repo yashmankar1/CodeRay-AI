@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import RepoBrowser from "./pages/RepoBrowser";
 import ReviewPage from "./pages/ReviewPage";
+import Reports from "./pages/Reports";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/repo/:owner/:repo/*" element={<RepoBrowser />} />
         <Route path="/review/:owner/:repo/*" element={<ReviewPage />} />
+        <Route path="/reports" element={<Reports />} />
       </Routes>
     </BrowserRouter>
   );

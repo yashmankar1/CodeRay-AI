@@ -37,6 +37,8 @@ function Dashboard() {
       <img src={user.avatarUrl} alt="avatar" width="80"></img>
       <p>@{user.username}</p>
 
+      <Link to="/reports">View Past Reviews</Link>
+
       <ul>
         {repo.map((r) => (
           <li key={r.id}>
