@@ -27,6 +27,37 @@ exports.reviewCode = async (req, res) => {
 
     const fileName = fileResponse.data.name;
 
+    const ALLOWED_EXTENSIONS = [
+      ".js",
+      ".jsx",
+      ".mjs",
+      ".ts",
+      ".tsx",
+      ".py",
+      ".java",
+      ".go",
+      ".rb",
+      ".php",
+      ".c",
+      ".cpp",
+      ".cs",
+    ];
+
+    const MAX_CODE_LENGTH = 10000;
+
+    const extension = fileName.slice(fileName.lastIndexOf("."));
+    if (!ALLOWED_EXTENSIONS.includes(extension)) {
+      return res.status(400).json({
+        error: `File type "${extension}" is not supported for review.`,
+      });
+    }
+
+    if (code.length > MAX_CODE_LENGTH) {
+      return res.status(400).json({
+        error: "FIle is too large to review. Please select a smaller file.",
+      });
+    }
+
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const prompt = `You are a senior code reviewer. Review the following code file named "${fileName}".

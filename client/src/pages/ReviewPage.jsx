@@ -42,7 +42,8 @@ function ReviewPage() {
       );
       setReview(result.data);
     } catch (err) {
-      setError(err.message);
+      const message = err.response?.data?.error || err.message;
+      setError(message);
     } finally {
       setReviewLoading(false);
     }
