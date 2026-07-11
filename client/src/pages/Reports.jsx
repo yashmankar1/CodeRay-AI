@@ -23,6 +23,17 @@ function Reports() {
     fetchReports();
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${API_BASE_URL}/api/reports/${id}`, {
+        withCredentials: true,
+      });
+      setReports(reports.filter((r) => r._id !== id));
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   if (loading)
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-950">
@@ -57,6 +68,13 @@ function Reports() {
                     <span className="rounded-full bg-blue-600/20 px-3 py-1 text-sm font-medium text-blue-400">
                       {report.qualityScore}/10
                     </span>
+
+                    <button
+                      onClick={() => handleDelete(report._id)}
+                      className="p-2 text-red-900 hover:text-red-600 cursor-pointer"
+                    >
+                      Delete
+                    </button>
                   </div>
 
                   <p className="mb-3 text-sm text-gray-400">
