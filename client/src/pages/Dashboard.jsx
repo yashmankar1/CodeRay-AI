@@ -29,6 +29,15 @@ function Dashboard() {
     fetchUser();
   }, []);
 
+  const handleLogout = async () => {
+    await axios.post(
+      `${API_BASE_URL}/api/auth/logout`,
+      {},
+      { withCredentials: true },
+    );
+    window.location.href = "/";
+  };
+
   if (loading)
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-900 text-slate-300">
@@ -61,6 +70,12 @@ function Dashboard() {
               className="w-8 h-8 rounded-full"
             />
             <span className="text-sm text-slate-300">@{user.username}</span>
+            <button
+              onClick={handleLogout}
+              className="px-3 py-2 bg-red-600 text-white font-medium rounded-lg shadow-md hover:bg-red-700 hover:shadow-lg transition-all duration-200 cursor-pointer active:scale-95"
+            >
+              Logout
+            </button>
           </div>
         </nav>
       </header>
@@ -78,19 +93,23 @@ function Dashboard() {
             <Link
               key={r.id}
               to={`/repo/${user.username}/${r.name}`}
-              className="block bg-slate-800 border border-slate-700 rounded-lg px-5 py-4 hover:border-slate-500 transition-colors"
+              className="block bg-slate-800 border border-slate-700 rounded-xl p-5 hover:border-blue-500 hover:bg-slate-800/80 transition-all duration-200"
             >
-              <div className="flex items-center justify-between">
-                <span className="font-medium">{r.name}</span>
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-lg truncate">{r.name}</h3>
+
+                  <p className="text-sm text-slate-400 mt-2 line-clamp-2">
+                    {r.description || "No description available"}
+                  </p>
+                </div>
+
                 {r.language && (
-                  <span className="text-xs text-slate-400 bg-slate-700 px-2 py-1 rounded">
+                  <span className="shrink-0 text-xs font-medium text-blue-300 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full">
                     {r.language}
                   </span>
                 )}
               </div>
-              {r.description && (
-                <p className="text-sm text-slate-400 mt-1">{r.description}</p>
-              )}
             </Link>
           ))}
         </div>

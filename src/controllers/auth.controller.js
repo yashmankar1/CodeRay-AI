@@ -74,3 +74,12 @@ exports.githubCallback = async (req, res) => {
     res.status(500).json({ error: "Github authentication failed" });
   }
 };
+
+exports.logout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    sameSite: "none",
+    secure: "true",
+  });
+  res.json({ message: "Logged out successfully" });
+};

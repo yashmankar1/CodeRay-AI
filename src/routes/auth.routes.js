@@ -6,10 +6,12 @@ const router = express.Router();
 const {
   githubLogin,
   githubCallback,
+  logout,
 } = require("../controllers/auth.controller");
 
 router.get("/github", githubLogin);
 router.get("/github/callback", githubCallback);
+router.post("/logout", logout);
 
 router.get("/me", userAuth, (req, res) => {
   res.set("Cache-Control", "no-store");
