@@ -68,7 +68,7 @@ exports.githubCallback = async (req, res) => {
 
     console.log("User in DB:", user);
 
-    res.redirect("http://localhost:5173/dashboard");
+    res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ error: "Github authentication failed" });
