@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import RepoBrowser from "./pages/RepoBrowser";
 import ReviewPage from "./pages/ReviewPage";
 import Reports from "./pages/Reports";
+import Layout from "./pages/Layout";
 
 function App() {
   return (
@@ -11,9 +12,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/repo/:owner/:repo/*" element={<RepoBrowser />} />
-        <Route path="/review/:owner/:repo/*" element={<ReviewPage />} />
-        <Route path="/reports" element={<Reports />} />
+
+        <Route element={<Layout />}>
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/repo/:owner/:repo/*" element={<RepoBrowser />} />
+          <Route path="/review/:owner/:repo/*" element={<ReviewPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
